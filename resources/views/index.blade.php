@@ -6,7 +6,7 @@
             <div class="owl-carousel owl-theme home-slider">
                 @foreach ($latestArticles as $article)
                     <div>
-                        <a href="{{ route('article.show', [$article->category->slug, $article->slug]) }}"
+                        <a href="{{ route('article.show', [app()->getLocale(), $article->category->slug, $article->slug]) }}"
                             class="a-block d-flex align-items-center height-lg"
                             style="background-image: url('/uploads/{{ $article->detail_image }}'); ">
                             <div class="text half-to-full">
@@ -27,7 +27,7 @@
                     <div class="row">
                         @foreach ($articles as $article)
                             <div class="col-md-6">
-                                <a href="{{ route('article.show', [$article->category->slug, $article->slug]) }}"
+                                <a href="{{ route('article.show', [app()->getLocale(), $article->category->slug, $article->slug]) }}"
                                     class="blog-entry element-animate" data-animate-effect="fadeIn">
                                     <img src="/uploads/{{ $article->preview_image }}" alt="{{ $article->title }}">
                                     <div class="blog-content-body">

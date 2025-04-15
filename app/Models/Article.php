@@ -14,22 +14,42 @@ class Article extends Model
         'detail_text',
         'preview_image',
         'detail_image',
-        'tags',
         'category_id',
         'published_at',
         'active'
     ];
     protected $casts = [
-        'tags' => 'json',
         'published_at' => 'datetime',
         'active' => 'boolean'
     ];
 
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(ArticleCategory::class);
     }
 
-    public function getFormatedPublishedAtAttribute(){
+    public function getFormatedPublishedAtAttribute()
+    {
         return Carbon::parse($this->published_at)->translatedFormat('j F Y');
+    }
+
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, 'article_user_likes');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'article_tags');
+    }
+
+    public function getLikesCountAttribute()
+    {
+        return $this->likes()->count();
     }
 }

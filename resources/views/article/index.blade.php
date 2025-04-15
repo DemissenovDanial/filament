@@ -4,7 +4,7 @@
     @if (isset($category))
         <div class="row mb-4">
             <div class="col-md-6">
-                <h2 class="mb-4">Категория: {{ $category->title }}</h2>
+                <h2 class="mb-4">{{ __('Категория: ') }}{{ $category->title }}</h2>
             </div>
         </div>
     @endif
@@ -12,7 +12,7 @@
     @if (isset($tag))
         <div class="row mb-4">
             <div class="col-md-6">
-                <h2 class="mb-4">Тег: {{ $tag }}</h2>
+                <h2 class="mb-4">{{ __('Тег: ') }}{{ $tag->title }}</h2>
             </div>
         </div>
     @endif
@@ -20,13 +20,13 @@
     @if (isset($query))
         <div class="row mb-4">
             <div class="col-md-6">
-                <h2 class="mb-4">Поиск: {{ $query }}</h2>
+                <h2 class="mb-4">{{ __('Поиск: ') }}{{ $query }}</h2>
             </div>
         </div>
     @endif
 
     @if (isset($query) && count($articles) == 0)
-        <div class="not-found">По вашему запросу ничего не найдено</div>
+        <div class="not-found">{{ __('По вашему запросу ничего не найдено') }}</div>
     @endif
 
     <div class="row blog-entries">
@@ -35,7 +35,7 @@
                 <div class="col-md-12">
                     @foreach ($articles as $article)
                         <div class="post-entry-horzontal">
-                            <a href="{{ route('article.show', [$article->category->slug, $article->slug]) }}">
+                            <a href="{{ route('article.show', [app()->getLocale(), $article->category->slug, $article->slug]) }}">
                                 <div class="image element-animate" data-animate-effect="fadeIn"
                                     style="background-image: url(/uploads/{{ $article->preview_image }});"></div>
                                 <span class="text">

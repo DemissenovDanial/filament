@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/assets/css/bootstrap.css">
     <link rel="stylesheet" href="/assets/css/animate.css">
     <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/assets/fonts/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="/assets/fonts/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/fonts/flaticon/font/flaticon.css">
@@ -54,7 +54,6 @@
     <script src="/assets/js/owl.carousel.min.js"></script>
     <script src="/assets/js/jquery.waypoints.min.js"></script>
     <script src="/assets/js/jquery.stellar.min.js"></script>
-
 
     <script src="/assets/js/main.js"></script>
 </body>

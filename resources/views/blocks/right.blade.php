@@ -1,40 +1,14 @@
 <div class="col-md-12 col-lg-4 sidebar">
-    <div class="sidebar-box search-form-wrap">
-        <form action="{{ route('article.search') }}" class="search-form" method="GET">
-            <div class="form-group">
-                <span class="icon fa fa-search"></span>
-                <input type="text" class="form-control" name="query" placeholder="Поиск...">
-            </div>
-        </form>
-    </div>
     <!-- END sidebar-box -->
     <div class="sidebar-box">
-        <div class="bio text-center">
-            <img src="/assets/images/person_2.jpg" alt="Image Placeholder" class="img-fluid">
-            <div class="bio-body">
-                <h2>Craig David</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem facilis sunt repellendus
-                    excepturi beatae porro debitis voluptate nulla quo veniam fuga sit molestias minus.</p>
-                <p><a href="{{ route('about') }}" class="btn btn-primary btn-sm rounded">Read my bio</a></p>
-                <p class="social">
-                    <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
-                    <a href="#" class="p-2"><span class="fa fa-instagram"></span></a>
-                    <a href="#" class="p-2"><span class="fa fa-youtube-play"></span></a>
-                </p>
-            </div>
-        </div>
-    </div>
-    <!-- END sidebar-box -->
-    <div class="sidebar-box">
-        <h3 class="heading">Популярные статьи</h3>
+        <h3 class="heading">{{ __('Последние статьи') }}</h3>
         <div class="post-entry-sidebar">
             <ul>
                 <li>
                     @foreach ($latestArticles as $article)
-                        <a href="{{ route('article.show', [$article->category->slug, $article->slug]) }}">
-                            <img src="/uploads/{{ $article->preview_image }}" alt="{{ $article->title }}"
-                                class="mr-4">
+                        <a
+                            href="{{ route('article.show', [app()->getLocale(), $article->category->slug, $article->slug]) }}">
+                            <img src="/uploads/{{ $article->preview_image }}" alt="{{ $article->title }}" class="mr-4">
                             <div class="text">
                                 <h4>{{ $article->title }}</h4>
                                 <div class="post-meta">
@@ -50,11 +24,11 @@
     <!-- END sidebar-box -->
 
     <div class="sidebar-box">
-        <h3 class="heading">Категории</h3>
+        <h3 class="heading">{{ __('Категории') }}</h3>
         <ul class="categories">
             @foreach ($categories as $category)
                 <li><a
-                        href="{{ route('article.category', $category->slug) }}">{{ $category->title }}<span>({{ $category->articles_count }})</span></a>
+                        href="{{ route('article.category', [app()->getLocale(), $category->slug]) }}">{{ $category->title }}<span>({{ $category->articles_count }})</span></a>
                 </li>
             @endforeach
         </ul>
@@ -62,10 +36,13 @@
     <!-- END sidebar-box -->
 
     <div class="sidebar-box">
-        <h3 class="heading">Теги</h3>
+        <h3 class="heading">{{ __('Теги') }}</h3>
         <ul class="tags">
             @foreach ($articleTags as $tag)
-                <li><a href="{{ route('article.tag', $tag) }}">{{ $tag }}</a></li>
+                @if ($tag)
+                    <li><a href="{{ route('article.tag', [app()->getLocale(), $tag]) }}">{{ $tag }}</a>
+                    </li>
+                @endif
             @endforeach
         </ul>
     </div>

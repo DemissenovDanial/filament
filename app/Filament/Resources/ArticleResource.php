@@ -60,7 +60,11 @@ class ArticleResource extends Resource
                 TinyEditor::make('detail_text')
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\TagsInput::make('tags'),
+                Forms\Components\Select::make('tags')
+                    ->label('Теги')
+                    ->multiple()
+                    ->relationship('tags', 'title')
+                    ->preload(),
                 Forms\Components\Select::make('category_id')
                     ->options(static::categoryOptions())
                     ->required(),
@@ -77,20 +81,25 @@ class ArticleResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('title')->searchable(),
+                Tables\Columns\TextColumn::make('slug')->searchable(),
                 Tables\Columns\ImageColumn::make('preview_image'),
                 Tables\Columns\ImageColumn::make('detail_image'),
                 Tables\Columns\TextColumn::make('category.title')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('published_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\IconColumn::make('active')
-                    ->boolean(),
+
+                Tables\Columns\TextColumn::make('tags')
+                    ->label('Теги')
+                    ->getStateUsing(function ($record) {
+                        return $record->tags->isNotEmpty()
+                            ? $record->tags->pluck('title')->implode(', ')
+                            : 'Нет тегов';
+                    }),
+
+
+                Tables\Columns\TextColumn::make('published_at')->dateTime()->sortable(),
+                Tables\Columns\IconColumn::make('active')->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -112,6 +121,7 @@ class ArticleResource extends Resource
                 ]),
             ]);
     }
+
 
     public static function getRelations(): array
     {
